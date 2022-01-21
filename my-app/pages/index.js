@@ -57,13 +57,9 @@ export default function Home() {
   const getNumProposalsInDAO = async () => {
     try {
       const provider = await getProviderOrSigner();
-      const contract = new Contract(
-        CRYPTODEVS_DAO_CONTRACT_ADDRESS,
-        CRYPTODEVS_DAO_ABI,
-        provider
-      );
-      //const contract = getDaoContractInstance(provider);
+      const contract = getDaoContractInstance(provider);
       const daoNumProposals = await contract.numProposals();
+      //console.log("Num of proposals: ", daoNumProposals);
       setNumProposals(daoNumProposals.toString());
     } catch (error) {
       console.error(error);
@@ -226,7 +222,7 @@ export default function Home() {
       connectWallet().then(() => {
         getDAOTreasuryBalance();
         getUserNFTBalance();
-        //getNumProposalsInDAO();
+        getNumProposalsInDAO();
       });
     }
   }, [walletConnected]);
